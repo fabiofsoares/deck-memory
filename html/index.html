@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#FFF"> 
+    <link rel="stylesheet" href="style.css"> 
+    <title>Jeu Memory</title>
+  </head>
+  <body> 
+      <h1>Jeu Memory</h1>
+    <div id="board">
+        <div id="cards">
+            <!-- <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div>
+            <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div>
+            <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div> -->
+        </div>
+        <div id="panel"></div>
+    </div> 
+
+    <script>
+
+    let cards = document.getElementById('cards')
+    for (let index = 0; index < 30; index++) {
+        let card =  document.createElement("div"); 
+        card.className = "card";
+        card.id = "card-AS";
+        let img =  document.createElement("img");
+        img.src =  "img/AH.png";
+        card.appendChild(img);
+        cards.appendChild(card);
+        
+    }
+    </script>
+  </body>
+</html>

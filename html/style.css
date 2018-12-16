@@ -1,0 +1,39 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    align-self: center;
+    font-size: 19px;
+}
+#board {
+    display: flex;
+    width: 1150px;
+    height: auto; 
+    border: 1px solid black;
+    align-self: center;
+}
+
+#cards{
+    border: 1px solid green;
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: start;
+    padding: 4px 0;
+}
+#panel{
+    border: 1px solid green;
+    width: 25%;
+}
+
+.card{
+   /*border: 1px solid pink;*/
+    margin: 0 3px;
+}
+
+.card img{
+    width: 101px;
+    cursor: pointer;
+}
