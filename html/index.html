@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#FFF"> 
+    <link rel="stylesheet" href="style.css"> 
+    <title>Jeu Memory</title>
+  </head>
+  <body> 
+      <h1>Jeu Memory</h1>
+    <div id="board">
+        <div id="cards">
+            <!-- <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div>
+            <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div>
+            <div id="card-AS" class="card">
+                <img src="img/AS.png" alt="">
+            </div> -->
+        </div>
+        <div id="panel">
+            <div id=" " class="notif-panel"> 
+                <h2>Timer</h2>
+                <div class="timer">
+                    <p>00 : 00</p>
+                </div>
+            </div>
+            <div id=" " class="notif-panel"> 
+                <h2>Points</h2>
+                <p>01  points</p>
+            </div>
+            <div id=" " class="notif-panel"> 
+                <h2>Jeu</h2>
+                <button>Pause</button>
+                <button>Recommencer</button>
+            </div>  
+        </div>
+    </div> 
+
+    <script>
+
+    let cards = document.getElementById('cards')
+    for (let index = 0; index < 30; index++) {
+        let card =  document.createElement("div"); 
+        card.className = "card";
+        card.id = "card-AS";
+        let img =  document.createElement("img");
+        img.className = "novisible";
+        img.src =  "img/dos-carte.png";
+        img.onclick = Return;
+        card.appendChild(img);
+        cards.appendChild(card);
+        
+    }
+
+    function Return() {
+        if( this.className == "novisible") {
+            this.src = "img/AH.png";
+            this.className = "visible"
+        }else{
+            this.src = "img/dos-carte.png";
+            this.className = "novisible"
+        }
+       
+    }
+    </script>
+  </body>
+</html>
