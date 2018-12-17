@@ -11,13 +11,10 @@ class Card extends Component {
     showCard(){
         this.setState({
             visible: !this.state.visible
-        })
-        console.log(this.props)
-        //this.props.showCards(this.props.code)
+        })        
         this.props.action(this.props.data.code, this)
     }
-    render() {
-        console.log(this.state.visible)
+    render() {        
         return (
             <div className={ styles.component + (this.state.visible ? ' visible' : '') } onClick={ this.showCard.bind(this) }>
                 <h1>code : {this.props.data.code}</h1>
