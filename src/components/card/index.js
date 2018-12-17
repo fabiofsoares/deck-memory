@@ -2,24 +2,27 @@ import React, { Component } from 'react';
 import styles from './style.css'
 
 class Card extends Component {
+    
     constructor(props){
         super(props)
         this.state = {           
             visible: false
-        }
+        }        
     }
-    showCard(){
+
+    showCard() {
         this.setState({
             visible: !this.state.visible
         })        
         this.props.action(this.props.data.code, this)
     }
-    render() {        
+
+    render() {              
         return (
             <div className={ styles.component + (this.state.visible ? ' visible' : '') } onClick={ this.showCard.bind(this) }>
-                <h1>code : {this.props.data.code}</h1>
-                <h2>suit : {this.props.data.suit}</h2>
-                <h2>value : {this.props.data.value}</h2>
+                <div className="card" id={ this.props.data.code }>
+                    <img src={ this.props.data.image } alt=""/>
+                </div>
             </div>
         );
     }

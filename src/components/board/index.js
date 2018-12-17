@@ -13,28 +13,20 @@ class Board extends Component {
             deck : [],
             card_code : undefined,
             card: {},
-            point: 0,
-            game_over: false,
-            timing: 0
+            point: 0,            
+            paused: false,
+            timing: 0,
+            message: '',
+            allCards: []
         }              
     }
     
     componentDidMount() {        
         this.start()
-        time = setInterval(() => {
-            this.setState({
-                timing: this.state.timing + 1
-            })
-
-        }, 1000)       
+        this.timing()              
     }
 
-    componentDidUpdate() {
-        
-        if(this.state.point === nbr_cards){
-            console.log('JEU GAGNE')
-            clearInterval(time)
-        }
+    componentDidUpdate() {       
         
     }
     
@@ -48,12 +40,38 @@ class Board extends Component {
             .then(res => {
                 let cards =res.cards.concat(res.cards.slice(0))
                 this.setState({
-                    deck : this.shuffle(cards)
+                    deck : this.shuffle(cards),
+                    card: {},
+                    timing: 0,
+                    point: 0,
+                    message: ''                    
+                },() => {                                      
+                    this.state.allCards && this.state.allCards.map((item) => {
+                        item.setState({
+                            visible: false
+                        })
+                    })                  
                 })
             });
-        });
+        });       
+        
+    }    
 
-    }  
+    pause() {       
+        this.state.paused ? this.timing() : clearInterval(time)
+        this.setState({
+            paused: !this.state.paused
+        })
+    }    
+
+    timing(){
+        time = setInterval(() => {
+            this.setState({
+                timing: this.state.timing + 1
+            })
+
+        }, 1000)
+    }
 
     shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
@@ -64,42 +82,66 @@ class Board extends Component {
     }
 
     showCards(code, card){        
-       
+        
+        this.setState({ allCards : [...this.state.allCards, card] })
+        
         if(this.state.card_code === undefined){
-           
+
             this.setState({
                 card_code: code,
                 card: card
             })
         
         } else{            
-            if(this.state.card_code === code){
-                
-                this.setState({  card_code: undefined, point: this.state.point + 1 })                
             
+            if(this.state.card_code === code){                
+                this.setState({  card_code: undefined, point: this.state.point + 1 }, () => {
+                    if(this.state.point === nbr_cards){
+                        clearInterval(time)
+                        this.setState({ card_code: undefined, card: {}, message: 'super.. vous avez gagné !' })
+                    }
+                })
+
             } else {                     
                 setTimeout(()=>{
                     this.state.card.setState({ visible: false })
                     card.setState({visible: false})
                     this.setState({ card_code: undefined, card: {} })
-                }, 1500)
-                
+                }, 1500)                
             }
-        }
+        }    
+        
     }
 
    
-    render() {
+    render() {    
         
-
         return (
             <div className={ styles.component }>
-            <h1>Total de points : {this.state.point}</h1>
-            <button onClick={ this.start.bind(this) }>RECOMMENCER</button> 
-            <div>TIME : { this.state.timing }</div>
-            <main>
-            {this.state.deck && this.state.deck.map((card, index) => <Card key={index} data={card} action={this.showCards.bind(this)}/>)}
-            </main>
+                <h1>Jeu de la Memoire</h1>           
+                <main>
+                    
+                    <div className="board right">
+                        { this.state.deck && this.state.deck.map((card, index) => <Card key={ index } data={card} action={this.showCards.bind(this)} />)  }                        
+                    </div>
+                    
+                    <div className="actions-players left">
+                        <div className="action points">
+                            <p>Total de points : <span>{this.state.point}</span></p>
+                        </div>
+                        <div className="action message">
+                            <p>{ this.state.message }</p>
+                        </div>
+                        <div className="action timing ">
+                            <p>TIME : <span>{ this.state.timing }</span></p>
+                        </div>
+                        <div className="action play">
+                            <button onClick={ this.start.bind(this) }>RECOMMENCER</button>
+                            <button onClick={ this.pause.bind(this) }>{ this.state.paused ? 'PLAY' : 'PAUSE' }</button>
+                        </div>
+                    </div>
+
+                </main>
             </div>
         );
     }
