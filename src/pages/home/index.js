@@ -9,7 +9,8 @@ class Home extends Component {
         this.state = {
             single: '',
             duo_1: '',
-            duo_2: ''
+            duo_2: '',
+            visible: true
         }
     }  
 
@@ -36,7 +37,8 @@ class Home extends Component {
        
         if(this.refs.single_player.value !== ''){
             this.setState({
-               single: this.refs.single_player.value
+               single: this.refs.single_player.value,
+               visible: false
             }, () => {
                 this.props.play(this.state)                
             })
@@ -44,7 +46,8 @@ class Home extends Component {
         } else {
             this.setState({
                 duo_1: this.refs.duo_player_1.value,
-                duo_2: this.refs.duo_player_2.value
+                duo_2: this.refs.duo_player_2.value,
+                visible: false
             }, () => {
                 this.props.play(this.state)    
             })
@@ -55,7 +58,7 @@ class Home extends Component {
     render() {   
         
         return (
-            <div className={ styles.component }>
+            <div className={ styles.component + (this.state.visible ? ' visible' : '') }>
                 
                 <div className="content">                    
                     <main>                        
@@ -64,7 +67,7 @@ class Home extends Component {
                             <div className="from">
                                 <div className="input-container">
                                     <label>Player :</label><br/>
-                                    <input type="text" name="single_player" ref="single_player" onChange={ this.inputNames.bind(this) } />
+                                    <input type="text" name="single_player" ref="single_player" />
                                 </div>
                                 <button onClick={ this.getStart.bind(this) } >GO</button>
                             </div>
@@ -75,11 +78,11 @@ class Home extends Component {
                             <div className="from">
                                 <div className="input-container">
                                     <label>Player 1 :</label><br/>
-                                    <input type="text" name="duo_player_1" ref="duo_player_1" onChange={ this.inputNames.bind(this) }/>
+                                    <input type="text" name="duo_player_1" ref="duo_player_1" />
                                 </div>
                                 <div className="input-container">
                                     <label>Player 2 :</label><br/>
-                                    <input type="text" name="duo_player_2" ref="duo_player_2" onChange={ this.inputNames.bind(this) }/>
+                                    <input type="text" name="duo_player_2" ref="duo_player_2" />
                                 </div>
                                 <button onClick={ this.getStart.bind(this) }>GO</button>
                             </div>
