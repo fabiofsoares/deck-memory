@@ -18,13 +18,15 @@ class Board extends Component {
             timing: 0,
             message: '',
             allCards: [],
-            tour: false
+            tour: false,
+            single: false,
+            players:{}
         }              
     }
     
     componentDidMount() {        
         this.start()
-        this.timing()              
+        //this.timing()              
     }
 
     componentDidUpdate() {       
@@ -56,7 +58,30 @@ class Board extends Component {
             });
         });       
         
-    }    
+    }
+    
+    players(){
+        if(this.props.data.players.single){
+            this.setState({
+                single: true,
+                players: {                   
+                    player_1: this.props.data.players.single,
+                    point_1: 0
+                }
+            })
+        } else {
+            this.setState({
+                single: false,
+                players: {                    
+                    player_1: this.props.data.players.duo_1,
+                    point_1: 0,
+                    player_2: this.props.data.players.duo_2,
+                    point_2: 0
+                }
+            })
+
+        }
+    }
 
     pause() {       
         this.state.paused ? this.timing() : clearInterval(time)
@@ -115,11 +140,10 @@ class Board extends Component {
     }
 
    
-    render() {  
-        
+    render() {          
         return (
             <div className={ (this.props.data.start ? 'active ' : '') + styles.component }>                
-                <h3>{this.state.tour ? 'JOUEUR 2' : 'JOUEUR 1'}</h3>           
+                <h3>{ this.props.data.players.single ? this.props.data.players.single : ( this.state.tour ? this.props.data.players.duo_2 : this.props.data.players.duo_1 )}</h3>           
                 <main>
                     
                     <div className="board right">

@@ -4,3 +4,8 @@
 :local(.component).visible {
   display: block;
 }
+
+:local(.component) main {
+  display: flex;
+  justify-content: center;
+}
