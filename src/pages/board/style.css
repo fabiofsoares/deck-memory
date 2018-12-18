@@ -1,0 +1,26 @@
+:local(.component) {
+    display: none;
+    text-align: center;
+}
+
+:local(.component).active {
+    display: block;
+}
+
+:local(.component) main {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+:local(.component) main .board {
+    flex: 1 1 75%;
+    border: 1px solid #000;
+    display: flex;
+    flex-flow: wrap;
+}
+
+:local(.component) main .actions-players {
+    flex: 1 1 25%;
+    border: 1px solid red
+}

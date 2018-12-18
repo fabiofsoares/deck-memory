@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Card from '../card'
+import Card from '../../components/card'
 import styles from './style.css'
 
 let  time = ''
@@ -17,7 +17,8 @@ class Board extends Component {
             paused: false,
             timing: 0,
             message: '',
-            allCards: []
+            allCards: [],
+            tour: false
         }              
     }
     
@@ -106,7 +107,7 @@ class Board extends Component {
                 setTimeout(()=>{
                     this.state.card.setState({ visible: false })
                     card.setState({visible: false})
-                    this.setState({ card_code: undefined, card: {} })
+                    this.setState({ card_code: undefined, card: {}, tour: !this.state.tour })
                 }, 1500)                
             }
         }    
@@ -114,11 +115,11 @@ class Board extends Component {
     }
 
    
-    render() {    
+    render() {  
         
         return (
-            <div className={ styles.component }>
-                <h1>Jeu de la Memoire</h1>           
+            <div className={ (this.props.data.start ? 'active ' : '') + styles.component }>                
+                <h3>{this.state.tour ? 'JOUEUR 2' : 'JOUEUR 1'}</h3>           
                 <main>
                     
                     <div className="board right">

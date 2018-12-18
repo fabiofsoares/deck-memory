@@ -1,0 +1,8 @@
+:local(.component) {
+   
+}
+:local(.component) h1{
+    text-align: center;
+    font-size: 30px;
+    color: red;
+ }
