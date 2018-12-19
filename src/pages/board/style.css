@@ -24,3 +24,7 @@
     flex: 1 1 25%;
     border: 1px solid red
 }
+
+:local(.component) main .actions-players .panel .player.tour{
+   border: 3px solid green;
+}

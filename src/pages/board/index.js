@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Card from '../../components/card'
 import styles from './style.css'
 
-let  time = ''
 let  nbr_cards = 3
 
 class Board extends Component {
@@ -11,26 +10,20 @@ class Board extends Component {
         super(props)
         this.state = {
             deck : [],
-            card_code : undefined,
-            card: {},
-            point: 0,            
-            paused: false,
-            timing: 0,
-            message: '',
             allCards: [],
+            card: {}, 
+            card_code : undefined,
+            paused: false,
+            message: '',
             tour: false,
-            single: false,
-            players:{}
+            single: false,           
+            point_1: 0,
+            point_2: 0
         }              
     }
     
     componentDidMount() {        
-        this.start()
-        //this.timing()              
-    }
-
-    componentDidUpdate() {       
-        
+        this.start()                    
     }
     
     start(){
@@ -44,9 +37,9 @@ class Board extends Component {
                 let cards =res.cards.concat(res.cards.slice(0))
                 this.setState({
                     deck : this.shuffle(cards),
-                    card: {},
-                    timing: 0,
-                    point: 0,
+                    card: {},  
+                    point_1: 0,
+                    point_2: 0,
                     message: ''                    
                 },() => {                                      
                     this.state.allCards && this.state.allCards.map((item) => {
@@ -58,46 +51,8 @@ class Board extends Component {
             });
         });       
         
-    }
-    
-    players(){
-        if(this.props.data.players.single){
-            this.setState({
-                single: true,
-                players: {                   
-                    player_1: this.props.data.players.single,
-                    point_1: 0
-                }
-            })
-        } else {
-            this.setState({
-                single: false,
-                players: {                    
-                    player_1: this.props.data.players.duo_1,
-                    point_1: 0,
-                    player_2: this.props.data.players.duo_2,
-                    point_2: 0
-                }
-            })
+    } 
 
-        }
-    }
-
-    pause() {       
-        this.state.paused ? this.timing() : clearInterval(time)
-        this.setState({
-            paused: !this.state.paused
-        })
-    }    
-
-    timing(){
-        time = setInterval(() => {
-            this.setState({
-                timing: this.state.timing + 1
-            })
-
-        }, 1000)
-    }
 
     shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
@@ -121,12 +76,33 @@ class Board extends Component {
         } else{            
             
             if(this.state.card_code === code){                
-                this.setState({  card_code: undefined, point: this.state.point + 1 }, () => {
-                    if(this.state.point === nbr_cards){
-                        clearInterval(time)
-                        this.setState({ card_code: undefined, card: {}, message: 'super.. vous avez gagné !' })
+                if(this.state.single){
+                    
+                    this.setState({  card_code: undefined, point_1: this.state.point_1 + 1 }, () => {
+                        if(this.state.point === nbr_cards){                            
+                            this.setState({ card_code: undefined, card: {} })
+                        }
+                    })
+
+                } else {
+                    
+                    if(this.state.tour){                    
+                        this.setState({  card_code: undefined, point_2: this.state.point_2 + 1 }, () => {
+                            if(this.state.point === nbr_cards){                               
+                                this.setState({ card_code: undefined, card: {} })
+                            }
+                        })
+                    } else {
+                        this.setState({  card_code: undefined, point_1: this.state.point_1 + 1 }, () => {
+                            if(this.state.point === nbr_cards){                                
+                                this.setState({ card_code: undefined, card: {} })
+                            }
+                        })
                     }
-                })
+
+                }
+
+                this.setState({ message: 'super.. vous avez gagné !'})
 
             } else {                     
                 setTimeout(()=>{
@@ -138,9 +114,37 @@ class Board extends Component {
         }    
         
     }
-
+    constructPanel(){
+        let panel = ''
+        
+        if( this.props.data.players.single ){
+            panel = (
+                <div className="panel-content">
+                    <div className="player player_1">
+                        <div>Player 1 : {this.props.data.players.single}</div>
+                        <div>Points : {this.state.point_1}</div>                       
+                    </div>
+                </div>
+            )
+        } else {
+            panel = (
+                <div className="panel-content">
+                    <div className={'player player_1 ' + (!this.state.tour ? 'tour' : '') }>
+                        <div>Player 1 : {this.props.data.players.duo_1}</div>
+                        <div>Points : {this.state.point_1}</div>                        
+                    </div>
+                    <div className={'player player_2 ' + (this.state.tour ? 'tour' : '') }>
+                        <div>Player 2 : {this.props.data.players.duo_2}</div>
+                        <div>Points : {this.state.point_2}</div>                        
+                    </div>
+                </div>
+            )
+        }
+        return panel;
+    }
    
-    render() {          
+    render() {
+
         return (
             <div className={ (this.props.data.start ? 'active ' : '') + styles.component }>                
                 <h3>{ this.props.data.players.single ? this.props.data.players.single : ( this.state.tour ? this.props.data.players.duo_2 : this.props.data.players.duo_1 )}</h3>           
@@ -150,19 +154,11 @@ class Board extends Component {
                         { this.state.deck && this.state.deck.map((card, index) => <Card key={ index } data={card} action={this.showCards.bind(this)} />)  }                        
                     </div>
                     
-                    <div className="actions-players left">
-                        <div className="action points">
-                            <p>Total de points : <span>{this.state.point}</span></p>
-                        </div>
-                        <div className="action message">
-                            <p>{ this.state.message }</p>
-                        </div>
-                        <div className="action timing ">
-                            <p>TIME : <span>{ this.state.timing }</span></p>
-                        </div>
+                    <div className="actions-players left">                        
+                        <div className="action message"><p>{ this.state.message }</p></div>
+                        <div className="panel"> { this.constructPanel() } </div>
                         <div className="action play">
                             <button onClick={ this.start.bind(this) }>RECOMMENCER</button>
-                            <button onClick={ this.pause.bind(this) }>{ this.state.paused ? 'PLAY' : 'PAUSE' }</button>
                         </div>
                     </div>
 

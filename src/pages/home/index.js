@@ -17,22 +17,7 @@ class Home extends Component {
     componentDidUpdate() {       
         
     }
-
-    inputNames(e){
-       
-       /*  let go = e.target.parentNode.parentNode.querySelector('button')
-        
-        if(e.target.name === 'single_player'){
-            
-            e.target.value !== '' ? go.disabled = false : go.disabled = true            
-        
-        } else {
-
-            this.refs.duo_player_1.value !== '' && this.refs.duo_player_2.value !== '' ? go.disabled = false : go.disabled = true
-
-        }  */             
-        
-    }
+    
     getStart(e){
        
         if(this.refs.single_player.value !== ''){
