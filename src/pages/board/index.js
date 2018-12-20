@@ -5,6 +5,19 @@ import styles from "./style.css";
 // import { Provider } from 'react-redux';
 // import reducer from './reducers';
 
+//  {this.props.dispatch(showC())}
+//  {this.props.dispatch(hideC())}
+// function showC() {
+//   return {
+//     type: 'SHOW'
+//   }
+// }
+
+// function hideC() {
+//   return {
+//    type: 'HIDE'
+//   }
+// }
 let nbr_cards = 3;
 
 class Board extends Component {

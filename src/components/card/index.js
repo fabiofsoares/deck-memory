@@ -17,6 +17,7 @@ class Card extends Component {
         this.props.action(this.props.data.code, this)
     }
 
+
     render() {              
         return (
             <div className={ styles.component + (this.state.visible ? ' visible' : '') } onClick={ this.showCard.bind(this) }>
