@@ -1,11 +1,20 @@
 :local(.component) {
   display: none;
 }
+
 :local(.component).visible {
   display: block;
 }
 
-:local(.component) main {
+:local(.component) .content {
   display: flex;
   justify-content: center;
+}
+
+:local(.component) .player-2 {
+  display: none;
+}
+
+:local(.component) .player-2.visible {
+  display: block;
 }

@@ -29,7 +29,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    background-color: blue;
+    /*background-color: blue;*/
     transition: all 1s ease;
 
 }

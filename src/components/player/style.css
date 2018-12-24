@@ -1,0 +1,11 @@
+:local(.component) {
+   
+}
+
+:local(.component) .player{
+    font-size: 20px;
+}
+
+:local(.component) .player.duo.active {
+    border: 2px solid green;
+}

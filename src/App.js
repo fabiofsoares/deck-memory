@@ -9,23 +9,52 @@ class App extends Component {
         super(props)
         
         this.state = {
-            start: false,
+            board: false,
             players: []          
         }
+       
     }
     play(player){        
-        this.setState({
-            start: true,
-            players: player
-        })
+       
+        if(player.duo){
+            this.setState({
+                board: true,
+                players:[
+                    {
+                        name: player.player_1,
+                        point: 0,
+                        tour: true
+                    },
+                    {
+                        name: player.player_2,
+                        point: 0,
+                        tour: false
+                    }
+                ]
+            })
+        } else {
+            this.setState({
+                board: true,
+                players:[
+                    {
+                        name: player.player_1,
+                        point: 0,
+                        tour: true
+                    }
+                ]
+            })
+        }        
     }
 
     render() {
+        
         return (
-            <div className="App">
-                <Header />
-                <Home play={ this.play.bind(this) }/>
-                <Board data={ this.state } />       
+            <div className="App">                
+                
+                <Header /> 
+                <Home play={ this.play.bind(this) }/>               
+                { this.state.board ? <Board visible={ true } players={ this.state.players } /> : '' }
+                    
             </div>
         );
     }

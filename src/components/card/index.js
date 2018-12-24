@@ -14,7 +14,7 @@ class Card extends Component {
         this.setState({
             visible: !this.state.visible
         })        
-        this.props.action(this.props.data.code, this)
+        this.props.game( this.props.data.code, this )
     }
 
 
