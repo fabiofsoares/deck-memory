@@ -32,8 +32,7 @@ class Board extends Component {
         allCards: [],     
         players: this.props.players,
         card: {},
-        card_code: undefined,
-        message: "",
+        card_code: undefined,       
         total: 0
     }
   }
@@ -43,7 +42,7 @@ class Board extends Component {
     }
 
     componentDidUpdate() {       
-       this.winner()
+       
     }
 
     start() {
@@ -68,8 +67,7 @@ class Board extends Component {
                         card_code: undefined,
                         players: players,
                         card: {},
-                        total: 0,
-                        message: ""
+                        total: 0
                     };
                 }, () => {
                     this.state.allCards &&
@@ -93,12 +91,7 @@ class Board extends Component {
     }
     popin( winner ){
         return <Popin player={winner} recommencer={this.start.bind(this)}/>
-    }
-    winner(){        
-        if(this.state.total === nbr_cards){
-           console.log('FIN DE JEU')           
-        }
-    }
+    }   
 
     /** Function redux **/
 
@@ -118,15 +111,22 @@ class Board extends Component {
             if (this.state.card_code === code) {       
             
                 this.setState(state => {
+                    let players = {}
                     
-                    const players = state.players.map((player, j) => {
-                        if (player.tour) {
+                    if(state.players.length === 2){
+                        players = state.players.map((player, j) => {
+                            if (player.tour) {
+                                return player = { name: player.name, point: player.point + 1, tour: true };
+                            } else {
+                                return player;
+                            }
+                        });
+                    } else {
+                        players = state.players.map((player, j) => {
                             return player = { name: player.name, point: player.point + 1, tour: true };
-                        } else {
-                            return player;
-                        }
-                    });
-            
+                        });
+                    }
+
                     return {
                         card_code: undefined,
                         players: players,
@@ -173,12 +173,11 @@ class Board extends Component {
 
             <div className="actions-players left">               
                 <Panel players={ this.state.players } />
-                <button onClick={ this.start.bind(this) }>Recommencer</button>
-                <p>{this.state.message}</p>
+                <button onClick={ this.start.bind(this) }>Recommencer</button>                
             </div>
 
         </main>
-        { this.state.total === nbr_cards && this.popin('Player') }
+        { this.state.total === nbr_cards && this.popin('Player_Winner_Name') }
       </div>
     );
   }
