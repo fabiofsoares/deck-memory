@@ -12,8 +12,8 @@
 }
 
 :local(.component) .card {
-    width: 150px;
-    height: 208px;
+    width: 90px;
+    height: 125px;
     position: relative;
     transform: rotateY(180deg);
     transition: all 1s ease;

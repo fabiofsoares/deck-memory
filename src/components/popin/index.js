@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styles from './style.css'
 
-
-
 class Popin extends Component {
     
     constructor(props){
@@ -27,7 +25,8 @@ class Popin extends Component {
             <div className={ styles.component }>
                 <div className='pop-up'>
                     <h1>FIN DU JEU !!</h1>
-                    <p>{this.props.player}</p>
+                    <p>{this.props.player.name}</p>
+                    <p>{this.props.player.point} points</p>
                     <button onClick={this.play.bind(this)}>Recommencer</button>
                 </div>
             </div>

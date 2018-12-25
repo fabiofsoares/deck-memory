@@ -15,10 +15,9 @@ class App extends Component {
        
     }
     play(player){        
-       
+      
         if(player.duo){
-            this.setState({
-                board: true,
+            this.setState({               
                 players:[
                     {
                         name: player.player_1,
@@ -31,10 +30,12 @@ class App extends Component {
                         tour: false
                     }
                 ]
+            }, () => {
+                //Function REDUX TODO
+                this.setState({board: true})
             })
         } else {
-            this.setState({
-                board: true,
+            this.setState({                
                 players:[
                     {
                         name: player.player_1,
@@ -42,8 +43,11 @@ class App extends Component {
                         tour: true
                     }
                 ]
+            }, ()=>{
+                //Function REDUX TODO
+                this.setState({board: true})
             })
-        }        
+        }   
     }
 
     render() {
@@ -53,7 +57,7 @@ class App extends Component {
                 
                 <Header /> 
                 <Home play={ this.play.bind(this) }/>               
-                { this.state.board ? <Board visible={ true } players={ this.state.players } /> : '' }
+                {  this.state.board && <Board players={ this.state.players  } /> }
                     
             </div>
         );

@@ -21,11 +21,11 @@ import Popin from "../../components/popin";
 //    type: 'HIDE'
 //   }
 // }
-let nbr_cards = 2;
+let nbr_cards = 10;
 
 class Board extends Component {
   constructor(props) {
-    super(props);
+    super(props);    
     
     this.state = {      
         deck: [],
@@ -33,18 +33,20 @@ class Board extends Component {
         players: this.props.players,
         card: {},
         card_code: undefined,       
-        total: 0
+        total: 0,
+        winner: {point:0}
     }
   }
 
     componentDidMount() {
-        this.start()    
+        this.start()
     }
 
     componentDidUpdate() {       
        
     }
 
+    /** Appel API / Recommencer le jeu **/
     start() {
         fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
         .then(response => response.json())
@@ -67,6 +69,7 @@ class Board extends Component {
                         card_code: undefined,
                         players: players,
                         card: {},
+                        winner: {point:0},
                         total: 0
                     };
                 }, () => {
@@ -82,6 +85,7 @@ class Board extends Component {
         });
     }
 
+    /** Melange les cartes **/
     shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -89,16 +93,26 @@ class Board extends Component {
         }
         return a;
     }
-    popin( winner ){
-        return <Popin player={winner} recommencer={this.start.bind(this)}/>
+    
+    /** Montre le gagneur**/
+    winner(){
+        this.state.players.map((player, i) => {
+            if(player.point > this.state.winner.point){
+                this.setState({
+                    winner: player
+                })
+            }
+        })
+        return  <Popin player={this.state.winner} recommencer={this.start.bind(this)}/>        
     }   
 
-    /** Function redux **/
-
+    /** Logique du Jeu **/
     play(code, card) {
-    
+        
+        /** Garde tous les cartes dans un array pour faire des modifications sur le DOM après **/
         this.setState({ allCards: [...this.state.allCards, card] });
         
+        //Piocher la première carte
         if (this.state.card_code === undefined) {
             
             this.setState({
@@ -108,13 +122,17 @@ class Board extends Component {
         
         } else {
             
+            //Comparer le code de la première carte avec la deuxième
             if (this.state.card_code === code) {       
             
                 this.setState(state => {
+                    
                     let players = {}
                     
+                    //S'il y a plus de 2 joeueurs, il y a les regles de tour
                     if(state.players.length === 2){
                         players = state.players.map((player, j) => {
+                            //Ajoute de point au joueur avec le tour active
                             if (player.tour) {
                                 return player = { name: player.name, point: player.point + 1, tour: true };
                             } else {
@@ -122,6 +140,7 @@ class Board extends Component {
                             }
                         });
                     } else {
+                        //Ajoute de point au joueur seul
                         players = state.players.map((player, j) => {
                             return player = { name: player.name, point: player.point + 1, tour: true };
                         });
@@ -137,10 +156,12 @@ class Board extends Component {
             } else {
                 
                 setTimeout(() => {
+                    //Si les deux cartes ne sont pas pareils, tous les valeurs se resetent
                     this.state.card.setState({ visible: false });
                     card.setState({ visible: false });
                     this.setState(state => {
                         const players = state.players.map((player, j) => {
+                            //les tours changent
                             return player = { name: player.name, point: player.point, tour: !player.tour };
                         });
                         return {
@@ -158,7 +179,7 @@ class Board extends Component {
   render() {
     
     return (
-      <div className={(this.props.visible ? "visible " : "") + styles.component} >        
+      <div className={styles.component} >        
         
         <main>
             
@@ -177,7 +198,9 @@ class Board extends Component {
             </div>
 
         </main>
-        { this.state.total === nbr_cards && this.popin('Player_Winner_Name') }
+
+        { this.state.total === nbr_cards && this.winner() }
+
       </div>
     );
   }

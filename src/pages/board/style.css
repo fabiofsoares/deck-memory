@@ -1,10 +1,5 @@
-:local(.component) {
-    display: none;
+:local(.component) {   
     text-align: center;
-}
-
-:local(.component).visible {
-    display: block;
 }
 
 :local(.component) main {
