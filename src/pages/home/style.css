@@ -6,9 +6,14 @@
   display: block;
 }
 
-:local(.component) .content {
-  display: flex;
-  justify-content: center;
+:local(.component) .content {  
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  background-color: #e55039;
+  border: 25px solid #eb2f06;  
+  border-radius: 15px;
+  box-shadow: 3px 2px 8px 0px #c6c6c6;
 }
 
 :local(.component) .player-2 {
@@ -18,3 +23,50 @@
 :local(.component) .player-2.visible {
   display: block;
 }
+
+.form-main {
+  text-align: center;
+  padding-top: 70px;
+  position: relative; 
+}
+
+.form-main .players label {
+  display: inline-block;
+  text-align: left;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.form-main .players input {
+  border: 3px solid #000000;
+  padding: 15px 10px;
+  border-radius: 10px;
+  width: 300px;
+  margin-top: 10px;
+}
+
+.form-main button {
+  cursor: pointer;
+  border: 3px solid #000000;
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.form-main .plus { 
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 10%;
+  top: 115px;
+  font-size: 40px;
+}
+
+.form-main .start {
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 10px;
+  width: 150px;
+  margin-top: 15px;
+}
+

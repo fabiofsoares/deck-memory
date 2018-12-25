@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import Card from "../../components/card";
 import styles from "./style.css";
+import Card from "../../components/card";
 import Panel from "../../components/panel";
+import Popin from "../../components/popin";
+
 // import { createStore } from "redux";
 // import { Provider } from 'react-redux';
 // import reducer from './reducers';
@@ -19,7 +21,7 @@ import Panel from "../../components/panel";
 //    type: 'HIDE'
 //   }
 // }
-let nbr_cards = 3;
+let nbr_cards = 2;
 
 class Board extends Component {
   constructor(props) {
@@ -66,6 +68,7 @@ class Board extends Component {
                         card_code: undefined,
                         players: players,
                         card: {},
+                        total: 0,
                         message: ""
                     };
                 }, () => {
@@ -88,7 +91,9 @@ class Board extends Component {
         }
         return a;
     }
-
+    popin( winner ){
+        return <Popin player={winner} recommencer={this.start.bind(this)}/>
+    }
     winner(){        
         if(this.state.total === nbr_cards){
            console.log('FIN DE JEU')           
@@ -166,13 +171,14 @@ class Board extends Component {
                 }
             </div>
 
-            <div className="actions-players left">
-                <p>{this.state.message}</p>
-                <Panel status={this.state.st} players={ this.state.players && this.state.players } />
+            <div className="actions-players left">               
+                <Panel players={ this.state.players } />
                 <button onClick={ this.start.bind(this) }>Recommencer</button>
+                <p>{this.state.message}</p>
             </div>
 
         </main>
+        { this.state.total === nbr_cards && this.popin('Player') }
       </div>
     );
   }

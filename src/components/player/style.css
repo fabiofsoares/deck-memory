@@ -4,8 +4,11 @@
 
 :local(.component) .player{
     font-size: 20px;
+    padding: 15px 0;
 }
 
 :local(.component) .player.duo.active {
-    border: 2px solid green;
+    border: 2px dashed green;
+    background-color: #b8e994;
+    
 }

@@ -1,0 +1,22 @@
+:local(.component) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding-top: 200px;   
+    background-color: rgba(0, 0, 0, 0.5);
+}
+:local(.component) h1{
+    text-align: center;
+    font-size: 30px;
+    color: red;
+ }
+ .pop-up {
+    border: 3px solid #000;
+    background-color: #ffffff;
+    max-width: 450px;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 0 auto;
+ }

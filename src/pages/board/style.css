@@ -15,16 +15,34 @@
 
 :local(.component) main .board {
     flex: 1 1 75%;
-    border: 1px solid #000;
+    background-color: #fad390;
+    padding: 25px 20px;
     display: flex;
     flex-flow: wrap;
+    justify-content: space-evenly;
 }
 
 :local(.component) main .actions-players {
-    flex: 1 1 25%;
-    border: 1px solid red
+    flex: 1 1 25%;    
+    border-left: 10px dashed red;
+    position: relative;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 :local(.component) main .actions-players .panel .player.tour{
-   border: 3px solid green;
+   border: 3px dashed green;
+   padding: 15px 10px;
+}
+
+:local(.component) button {
+    cursor: pointer;
+    border: 3px solid #000000;
+    color: #000000;
+    background-color: #FFFFFF;
+    display: inline-block;
+    padding: 15px 20px;
+    border-radius: 10px;
+    width: 150px;
+    margin-top: 15px;    
 }

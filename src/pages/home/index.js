@@ -66,8 +66,8 @@ class Home extends Component {
                                 <input type='text' ref='player_2' />
                             </label>
                         </div>
-                        <button onClick={ this.duo.bind(this) }>DUO</button>
-                        <button onClick={ this.start.bind(this) }>Start</button>
+                        <button className="plus" onClick={ this.duo.bind(this) }>+</button>
+                        <button className="start" onClick={ this.start.bind(this) }>Start</button>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import styles from './style.css'
 
 
 
-class Header extends Component {
+class Popin extends Component {
     
     constructor(props){
         super()
@@ -16,18 +16,23 @@ class Header extends Component {
 
     componentDidUpdate() {       
         
+    }
+    play(){
+        this.props.recommencer()
     } 
 
     render() {    
         
         return (
             <div className={ styles.component }>
-                <header>
-                    <h1>Jeu de la Memoire</h1>
-                </header>
+                <div className='pop-up'>
+                    <h1>FIN DU JEU !!</h1>
+                    <p>{this.props.player}</p>
+                    <button onClick={this.play.bind(this)}>Recommencer</button>
+                </div>
             </div>
         );
     }
 }
 
-export default Header;
+export default Popin;
