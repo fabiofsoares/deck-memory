@@ -7,7 +7,7 @@ import Logger from 'redux-logger'
 
 // import { createStore,applyMiddleware(thunk) } from "redux";
 // import { Provider } from 'react-redux';
-// import reducer from './reducers/visibleFilter';
+// import reducer from './reducers';
 
 // const store = createStore(reducer,applyMiddleware(thunk))
 // ReactDOM.render( <Provider store={store}><App /> </Provider>, document.getElementById('root'));
