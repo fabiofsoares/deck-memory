@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Home from './pages/home'
 import Board from './pages/board'
 import Header from './components/header'
-import {createStore} from "redux";
 
-const createStore = Redux.createStore(reducer);
 
 class App extends Component {
     constructor(props){
@@ -78,9 +76,3 @@ class App extends Component {
 }
 
 export default App;
-
-const boardAction = () => {
-  return {
-    type: 'BOARD'
-  }
-};

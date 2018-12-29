@@ -3,6 +3,15 @@ import styles from "./style.css";
 import Card from "../../components/card";
 import Panel from "../../components/panel";
 import Popin from "../../components/popin";
+import {createStore} from "redux";
+// ajouter cette action pour la board -> clic
+//createStore.dispatch({type: boardAction})
+const boardAction = () => {
+  return {
+    type: 'BOARD'
+  }
+};
+//ajouter cette action pour le clic
 //  {this.props.dispatch(showCIfOdd())}
 //  {this.props.dispatch(hideC())}
 function showC() {

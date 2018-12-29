@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Logger from 'redux-logger'
-
 // import { createStore,applyMiddleware(thunk) } from "redux";
 // import { Provider } from 'react-redux';
 // import reducer from './reducers';
