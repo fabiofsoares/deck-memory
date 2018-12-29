@@ -3,7 +3,6 @@ import styles from "./style.css";
 import Card from "../../components/card";
 import Panel from "../../components/panel";
 import Popin from "../../components/popin";
-
 //  {this.props.dispatch(showCIfOdd())}
 //  {this.props.dispatch(hideC())}
 function showC() {
