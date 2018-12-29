@@ -4,23 +4,41 @@ import Card from "../../components/card";
 import Panel from "../../components/panel";
 import Popin from "../../components/popin";
 
-// import { createStore } from "redux";
-// import { Provider } from 'react-redux';
-// import reducer from './reducers';
-
-//  {this.props.dispatch(showC())}
+//  {this.props.dispatch(showCIfOdd())}
 //  {this.props.dispatch(hideC())}
-// function showC() {
-//   return {
-//     type: 'SHOW'
-//   }
-// }
+function showC() {
+  return {
+    type: 'SHOW'
+  }
+}
+function showCIfOdd() {
+  return (dispatch, getState) => {
+    const card = this.card.state();
+ 
+    if (card === false) {
+      return;
+    }
+ 
+    dispatch(showC());
+  };
+}
 
-// function hideC() {
-//   return {
-//    type: 'HIDE'
-//   }
-// }
+function hideC() {
+  return {
+   type: 'HIDE'
+  }
+}
+function hideIfTrue() {
+  return (dispatch, getState) => {
+    const card = this.card.state();
+ 
+    if (card === false) {
+      return;
+    }
+ 
+    dispatch(hideC());
+  };
+}
 let nbr_cards = 10;
 
 class Board extends Component {
