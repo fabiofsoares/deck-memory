@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import styles from './style.css'
-
+const boardAction = () => {
+  return {
+    type: "BOARD"
+  };
+};
 
 class Home extends Component {
     
@@ -66,8 +70,8 @@ class Home extends Component {
                                 <input type='text' ref='player_2' />
                             </label>
                         </div>
-                        <button className="plus" onClick={ this.duo.bind(this) }>+</button>
-                        <button className="start" onClick={ this.start.bind(this) }>Start</button>
+                        <button className="plus" onClick={ this.duo.bind(this)}>+</button>
+                        <button className="start" onClick={ this.start.bind(this).then(this.props.dispatch({ type: boardAction })) }>Start</button>
                     </div>
                 </div>
             </div>
